@@ -1,0 +1,25 @@
+<!-- Jumbotron Header -->
+
+<div class="row" class="text-center">
+  <!-- link to new flower form -->
+  <div class="col-sm-12">
+    <a routerLink="/new/" id="newLink">New Flower</a>
+  </div>
+</div>
+<div class="container-fluid">
+  <!-- for loop to show all flowers -->
+  <div class="row" style="padding: 10px; margin: 10px">
+    <!-- for loop to show all flowers -->
+    <div class="col-sm-3 col-sm-offset-1" *ngFor="let flower of flowers">
+      <div class="card bg-success text-white">
+        <div class="card-body text-center">
+          <!-- show picture  -->
+          <img class="card-img-top img-fluid" src="{{imageUrl + flower.imagePath}}" alt="A flower">
+          <h4 class="card-title">{{flower.name | uppercase}}</h4>
+          <!-- click on link to see flower detail  -->
+          <div class="card-footer"><a routerLink="/detail/{{flower._id}}" class="card-link">Details</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

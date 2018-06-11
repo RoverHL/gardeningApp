@@ -1,0 +1,15 @@
+
+var app = require('../app'); //up a directory since we're in bin
+var http = require('http');
+
+var port = 8080; //set port
+
+app.set('port', port); //tell express what port we're using
+
+var server = http.createServer(app); //create the server
+
+server.listen(port);
+
+server.on('listening', () => { //set up an event listener to alert server is running
+   console.log("Listening on %s", server.address().port);
+});

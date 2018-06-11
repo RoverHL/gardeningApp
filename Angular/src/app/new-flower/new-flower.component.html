@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- centered -->
+    <div class="col-sm-5 col-sm-offset-1" style="margin: 0 auto">
+      <form #newFlowerForm="ngForm" (ngSubmit)="save(newFlowerForm)">
+        <!-- name and description properties have minimum lengths -->
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input required minlength="3" #name="ngModel" name="name" [(ngModel)]="flower.name" class="form-control">
+          <!-- flash style alert  -->
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            Name must be at least 3 characters long.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <input required minlength="4" #description="ngModel" name="description" [(ngModel)]="flower.description" class="form-control">
+          <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+            Longer description please.
+          </div>
+        </div>
+        <!--Water property radio group -->
+        <div class="form-group">
+          <label for="water">Water needs:</label>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.water" name="water" value="No watering"> &nbsp;No watering
+          </div>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.water" name="water" value="Once a week"> &nbsp;Once a week
+          </div>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.water" name="water" value="More than once a week"> &nbsp;More than once a week
+          </div>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.water" name="water" value="Unknown"> &nbsp;Don't Know
+          </div>
+        </div>
+
+        <!--Bloom season radio group -->
+        <div class="form-group">
+          <label for="season">Bloom season:</label>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.season" name="season" value="Spring"> &nbsp;Spring
+          </div>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.season" name="season" value="Early Summer"> &nbsp;Early Summer
+          </div>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.season" name="season" value="Late Summer"> &nbsp;Late Summer
+          </div>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.season" name="season" value="Fall"> &nbsp;Fall
+          </div>
+        </div>
+        <!--Height radio group -->
+        <div class="form-group">
+          <label for="height">Height:</label>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.height" name="height" value="Short"> &nbsp;Short
+          </div>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.height" name="height" value="Medium"> &nbsp;Medium
+          </div>
+          <div class="radio">
+            <input type="radio" [(ngModel)]="flower.height" name="height" value="Tall"> &nbsp;Tall
+          </div>
+        </div>
+        <!--file input does not have an angular binding, must use an event handler in the ts, uses Larry's file uploa fxn -->
+        <div class="form-group">
+          <label for="image">Image:</label>
+          <input type="file" name="image" (change)="handleFileInput($event.target)">
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+      <!--after adding a flower, user can add more or click below to return to main page-->
+      <a routerLink="/">Return to Main Page</a>
+    </div>
+  </div>
+</div>

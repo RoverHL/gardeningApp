@@ -1,0 +1,127 @@
+<!-- view toggles between view details and edit details mode -->
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- picture centered -->
+    <div class="col-sm-5 col-sm-offset-1" style="margin: 0 auto">
+      <div *ngIf="!editing">
+        <!-- this is default visible view  -->
+        <div class="card bg-success text-white">
+          <!-- if a flower exists, show its details -->
+          <div class="card-body text-center" *ngIf="flower">
+            <img class="card-img-top img-fluid" src="{{imageUrl + flower.imagePath}}" alt="A flower">
+            <h4 class="card-title">{{flower.name | uppercase}}</h4>
+            <!-- if a property exists, show it -->
+            <p *ngIf="flower.water" class="card-text">Water needs: {{flower.water}}</p>
+            <p *ngIf="flower.description" class="card-text">Description: {{flower.description}}</p>
+            <p *ngIf="flower.season" class="card-text">Season: {{flower.season}}</p>
+            <p *ngIf="flower.height" class="card-text">Height: {{flower.height}}</p>
+            <p class="card-text">Created: {{flower.createdAtString}}</p>
+            <!-- add from virtual data  -->
+            <p *ngIf="flower.lastTimeUpdated" class="card-text">Last updated: {{flower.lastTimeUpdated}} ago</p>
+
+            <!-- larry edit boolean to toggle edit view, makes edit form below visible -->
+            <button class="btn btn-success" (click)="setEditMode(true)">Click to edit</button>
+            <!--Delete button, after delete returns to main page  -->
+            <button type="button" class="btn btn-success" (click)="delete()">Delete</button>
+            <!-- click fxn from Angular hero to return to page using location method   -->
+            <button type="button" class="btn btn-success" (click)="goBack()">Go Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- editing view   -->
+  <div *ngIf="editing">
+    <!--   click for update fxn-->
+    <form #form="ngForm" (ngSubmit)="updateForService(form.value)">
+      <div class="form-row">
+        <div class="col-sm-5 col-sm-offset-1" style="margin: 0 auto">
+          <img class="card-img-top img-fluid" src="{{imageUrl + flower.imagePath}}" alt="A flower">
+          <div class="form-group">
+            <!-- Name and description fields have minimum lengths -->
+            <label for="editName">Name: </label>
+            <!-- [ngModel]="flower.name" format passes value through -->
+            <input required minlength="3" #editName="ngModel" [ngModel]="flower.name" class="form-control" name="editName">
+            <div *ngIf="editName.invalid && (editName.dirty || editName.touched)" class="alert alert-danger">
+              Name needs to be at least 3 characters.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="editDes">Description: </label>
+            <input required minlength="4" #editDes="ngModel" [ngModel]="flower.description" class="form-control" name="editDes">
+            <div *ngIf="editDes.invalid && (editDes.dirty || editDes.touched)" class="alert alert-danger">
+              Longer description please.
+            </div>
+          </div>
+          <!-- Water needs radio group -->
+          <div class="form-group">
+            <label for="editWater">Water needs:</label>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.water" #editWater name="editWater" value="None"> &nbsp;None
+            </div>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.water" #editWater name="editWater" value="Once"> &nbsp;Once a week
+            </div>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.water" #editWater name="editWater" value="More"> &nbsp;More than once a week
+            </div>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.water" #editWater name="editWater" value="Unknown"> &nbsp;Unknown
+            </div>
+          </div>
+          <!--Bloom season radio group -->
+          <div class="form-group">
+            <label for="editSeason">Bloom season:</label>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.season" #editSeason name="editSeason" value="Spring"> &nbsp;Spring
+            </div>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.season" #editSeason name="editSeason" value="Early Summer"> &nbsp;Early Summer
+            </div>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.season" #editSeason name="editSeason" value="Late Summer"> &nbsp;Late Summer
+            </div>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.season" #editSeason name="editSeason" value="Fall"> &nbsp;Fall
+            </div>
+          </div>
+          <!--Height radio group -->
+          <div class="form-group">
+            <label for="editHeight">Height:</label>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.height" #editHeight name="editHeight" value="Short"> &nbsp;Short
+            </div>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.height" #editHeight name="editHeight" value="Medium"> &nbsp;Medium
+            </div>
+            <div class="radio">
+              <input type="radio" [ngModel]="flower.height" #editHeight name="editHeight" value="Tall"> &nbsp;Tall
+            </div>
+          </div>
+          <!-- id's  is hidden, used for update flower/:id -->
+          <div class="form-group">
+            <input [ngModel]="flower._id" #edit_id class="form-control" type="hidden" name="edit_id">
+          </div>
+          <!--file input does not have an angular binding, must use an event handler in the ts, used to upload image -->
+          <div class="form-group">
+            <label for="image">Image:</label>
+            <!--Larry fxn in component.ts handles file upload -->
+            <input type="file" name="image" (change)="handleFileInput($event.target)">
+          </div>
+          <!-- button to remove just the image, adds a property to body sent to flower service  -->
+          <div class="form-check">
+            <input [ngModel]="remove" type="checkbox" class="form-check-input" ng-checked="false" name="remove">
+            <label for="remove">Remove Image </label>
+          </div>
+          <!-- save changes -->
+          <button type="submit" class="btn btn-outline-success align-self-center">Save Edit</button>
+          <!-- Return to prior page -->
+          <button (click)="setEditMode(false)" type="button" class="btn btn-outline-success align-self-center" aria-pressed="true">Return to Detail Page</button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

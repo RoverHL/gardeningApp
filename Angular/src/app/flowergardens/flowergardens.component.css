@@ -1,0 +1,25 @@
+/* flowersgardensComponent's private CSS styles */
+
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+
+
+/*used with link to create a new flower page*/
+#newLink{
+  background-color: skyblue;
+  border-width: thick;
+  border-color: green;
+  border-style: solid;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 20px;
+
+}

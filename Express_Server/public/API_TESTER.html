@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>API TESTER</title>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="jumbotron">
+				<h1>API TESTER</h1>
+				<br>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col-md-4">
+						<p>
+							<button class="btn btn-primary" id='fetch'>Click for List</button>
+						</p>
+						<textarea id="list" rows="20" cols="100"></textarea>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-4">
+						<h2>
+							Add Or Edit</h2>
+						<form id="add" method="POST" action="/api/flowers" enctype="multipart/form-data">
+							<div class="form-group">
+								<label for="editId">Id</label>
+								<input type="text" class="form-control" id="editId" style="width: 500px" placeholder="Add id then click to edit or leave blank if adding new item">
+							</div>
+							<button id="edit" type="submit" class="btn btn-primary">Click to Fetch for Editing</button>
+							<br>
+							<br>
+							<button id="update" type="submit" class="btn btn-primary">Save Edit</button>
+							<div class="form-group">
+								<label for="name">Name</label>
+								<input type="text" class="form-control" id="name" placeholder="name">
+							</div>
+							<div class="form-group">
+								<label for="des">Description</label>
+								<input type="text" class="form-control" id="des" placeholder="Description">
+							</div>
+							<div class="form-group">
+								<label for="water">Water Needs</label>
+								<input type="text" class="form-control" id="water" placeholder="water">
+							</div>
+							<div class="form-group">
+								<label for="image">Replace existing image by choosing new file or click delete to remove image. If deleting image, make sure 'no file chosen' appears below:</label>
+								<input class="form-control" id="image" type="file" name="image">
+								<button id="imageOnlyDelete" type="submit" class="btn btn-primary">Delete Image</button>
+							</div>
+							<br>
+							<br>
+							<button type="submit" class="btn btn-primary">Create New Item</button>
+						</form>
+					</div>
+				</div>
+				<br>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="id">Id to Delete</label>
+							<input type="text" class="form-control " id="item_id" rows="4" cols="50" name="id" placeholder="Id goes here">
+						</div>
+						<button class="btn btn-primary" id='delete'>Click to Delete</button>
+
+					</div>
+				</div>
+				</form>
+				<footer class="container-fluid text-center ">
+					<p></p>
+				</footer>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js "></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+				<script src="js/testerapi.js "></script>
+	</body>
+
+</html>

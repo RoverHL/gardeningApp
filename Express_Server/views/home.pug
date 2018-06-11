@@ -1,0 +1,51 @@
+extends layout
+
+
+block content
+
+    .container
+      .jumbotron
+        h2 Flower Logger
+        br
+        if flashMsg.length > 0
+            .alert.alert-danger <strong></strong>#{flashMsg}
+        form(enctype='multipart/form-data', action='home', method='POST')
+          .form-group
+            label(for="name") What's the flower's name?
+            input#name.form-control(name='name', type='text')
+            label(for="description") A short description:
+            input#description.form-control(name='description', type='text')
+            br
+            label(for="water") How much water will the plant get?
+          label.radio-inline
+            input#low(name='water', type='radio', value='little')
+            | Not Much
+          label.radio-inline
+            input#average(name='water', type='radio', value='average')
+            | Some
+          label.radio-inline
+            input#high(name='water', type='radio', value='plentiful')
+            | A lot
+          br
+          br
+          label(for='image') Image:
+          input#image.form-control(type='file', name='image')
+          br
+          button.btn.btn-primary(type='submit') Add Your Flower
+          br
+          br
+          br
+    .container
+      .jumbotron
+        h2 Your Flowers
+        br
+        .row
+          each flower in flowers
+            .col-md-4
+              p Name: #{flower.name}
+              p Description: #{flower.description}
+              p Water Needs: #{flower.water}
+              if(flower.imagePath)
+                .thumbnail
+                  img(src="static" + flower.imagePath, alt='flower',  style='width:100%')
+              a(href='home/edit/' + flower._id) Click to edit

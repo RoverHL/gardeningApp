@@ -1,0 +1,17 @@
+
+
+body {
+   background-color: white;
+   color: black;
+}
+
+.jumbotron {
+  background-color: rgb(131, 230, 247);
+}
+
+.list-group-item {
+    padding: 3px 10px;
+    width: 300px;
+    background-color: #74c476;
+    color: white
+}
